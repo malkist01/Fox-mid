@@ -3,16 +3,20 @@
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 # This is a v1 fstab file
 
+
+# mount point   fstype  device                      device2                     flags
 /cache          ext4      /dev/block/bootdevice/by-name/cache                flags=display="Cache"
 /boot           emmc      /dev/block/bootdevice/by-name/boot                 flags=display="Boot"
 /system_image   emmc      /dev/block/bootdevice/by-name/system               flags=backup=1;flashimg=1
 /vendor_image   emmc      /dev/block/bootdevice/by-name/cust                 flags=backup=1;flashimg=1
-/system         ext4      /dev/block/bootdevice/by-name/system               flags=display="System";backup=1;wipeingui
-/data           ext4      /dev/block/bootdevice/by-name/userdata             flags=length=-16384;encryptable=footer;fileencryption=ice:aes-256-heh
+/system_root    ext4      /dev/block/bootdevice/by-name/system               flags=display="System";backup=0;wipeingui
+/vendor         ext4      /dev/block/bootdevice/by-name/cust                 flags=display="Vendor/Cust";backup=0;wipeingui
+
+#/data           ext4      /dev/block/bootdevice/by-name/userdata             flags=encryptable=footer;fsflags="discard"
 /storage        ext4      /data/media/0                  		     flags=display="Internal Storage";usermrf;backup=1;fsflags="bind";removable
-/vendor         ext4      /dev/block/bootdevice/by-name/cust                 flags=display="Vendor/Cust";backup=1;wipeingui
 /persist_image  emmc      /dev/block/bootdevice/by-name/persist              flags=display="Persist Image";backup=1;flashimg=1
 /persist        ext4      /dev/block/bootdevice/by-name/persist              flags=display="Persist";backup=0
+
 /splash         emmc      /dev/block/bootdevice/by-name/splash               flags=display="Boot Logo";backup=1;flashimg=1
 /misc           emmc      /dev/block/bootdevice/by-name/misc                 flags=display="Misc"
 /recovery       emmc      /dev/block/bootdevice/by-name/recovery             flags=display="Recovery";backup=1
@@ -38,7 +42,7 @@
 /efsc		emmc	  /dev/block/bootdevice/by-name/fsc	             flags=backup=1;subpartitionof=/efs1
 #
 /sdcard1        auto      /dev/block/mmcblk1p1                               flags=display="MicroSD";storage;wipeingui;removable
-/usb_otg        auto      /dev/block/sda1                                    flags=display="USB Storage";storage;wipeingui;removable
+/usb_otg        auto      /dev/block/sda1                                    flags=display="USB-Storage";storage;wipeingui;removable
 #
 /cust         	ext4      /dev/block/bootdevice/by-name/cust       	     flags=display="Cust";backup=0
 #
