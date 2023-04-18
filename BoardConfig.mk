@@ -1,13 +1,16 @@
 #
 # Copyright (C) 2022 Team Win Recovery Project
-#
-# Copyright (C) 2022 The OrangeFox Recovery Project
-#
 # SPDX-License-Identifier: Apache-2.0
+#
+# Copyright (C) 2022-2023 The OrangeFox Recovery Project
+# SPDX-License-Identifier: GPL-3.0-or-later
 #
 
 # use our own fstab+flags
 MITHORIUM_USES_DEVICE_SPECIFIC_FSTAB := true
+
+# file system
+TARGET_USERIMAGES_USE_EXT4 := true
 
 # Inherit from common mithorium-common
 include device/xiaomi/mithorium-common/BoardConfigCommon.mk
