@@ -6,10 +6,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 
-# use our own fstab+flags
-MITHORIUM_USES_DEVICE_SPECIFIC_FSTAB := true
-
-# file system
+# enable ext4
 TARGET_USERIMAGES_USE_EXT4 := true
 
 # Inherit from common mithorium-common
@@ -17,16 +14,16 @@ include device/xiaomi/mithorium-common/BoardConfigCommon.mk
 
 DEVICE_PATH := device/xiaomi/mido
 
-# Kernel
-TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz-dtb
+# Recovery
+TARGET_RECOVERY_DEVICE_DIRS += $(DEVICE_PATH)
 
-# no EDL mode
-TW_HAS_EDL_MODE := false
+# kernel
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz-dtb
 
 # brightness
 TW_MAX_BRIGHTNESS := 255
-TW_DEFAULT_BRIGHTNESS := 145
+TW_DEFAULT_BRIGHTNESS := 192
 
-# Recovery
-TARGET_RECOVERY_DEVICE_DIRS += $(DEVICE_PATH)
+# no EDL mode
+TW_HAS_EDL_MODE := false
 #

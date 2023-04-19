@@ -1,7 +1,7 @@
 #!/sbin/sh
 #
 #	This file is part of the OrangeFox Recovery Project
-# 	Copyright (C) 2020 The OrangeFox Recovery Project
+# 	Copyright (C) 2020-2023 The OrangeFox Recovery Project
 #	
 #	OrangeFox is free software: you can redistribute it and/or modify
 #	it under the terms of the GNU General Public License as published by
@@ -18,16 +18,40 @@
 # 	
 # 	Please maintain this if you use this script or any part of it
 #
-echo battery-charging > /sys/class/leds/blue/trigger
-echo battery-full > /sys/class/leds/green/trigger
-echo bkl-trigger > /sys/class/leds/button-backlight/trigger
 
-# Enable keys by default
-echo 5 > /sys/class/leds/button-backlight/brightness
+set_read_write_partitions() {
+  local i=$(getprop "ro.orangefox.fastbootd");
+  [ "$i" = "1" ] && return; # don't run this in fastbootd mode
 
-echo "0" > /sys/class/leds/led:torch_1/max_brightness
-echo "0" > /sys/class/leds/torch-light1/max_brightness
-echo "0" > /sys/class/leds/led:flash_1/max_brightness
+  i=$(getprop "ro.boot.dynamic_partitions_retrofit");
+  [ "$i" != "true" ] && return; # only run on dynamic retrofit
 
-echo "0" > /proc/touchpanel/capacitive_keys_disable
-# echo "0" > /sys/devices/soc/qpnp-flash-led-25/leds/led:torch_1/max_brightness
+  local Parts="system system_ext vendor product";
+  for i in ${Parts}
+  do
+     echo "I:OrangeFox: setting $i to read/write" >> /tmp/recovery.log;
+     blockdev --setrw /dev/block/mapper/$i;
+  done
+}
+
+sortout_keys() {
+	echo battery-charging > /sys/class/leds/blue/trigger;
+	echo battery-full > /sys/class/leds/green/trigger;
+	echo bkl-trigger > /sys/class/leds/button-backlight/trigger;
+
+	# Enable keys by default
+	echo 5 > /sys/class/leds/button-backlight/brightness;
+
+	echo "0" > /sys/class/leds/led:torch_1/max_brightness;
+	echo "0" > /sys/class/leds/torch-light1/max_brightness;
+	echo "0" > /sys/class/leds/led:flash_1/max_brightness;
+
+	echo "0" > /proc/touchpanel/capacitive_keys_disable;
+	# echo "0" > /sys/devices/soc/qpnp-flash-led-25/leds/led:torch_1/max_brightness;
+}
+
+
+sortout_keys;
+set_read_write_partitions;
+exit 0;
+#

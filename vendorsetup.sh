@@ -54,9 +54,6 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 	export OF_QUICK_BACKUP_LIST="/boot;/data;/system_image;/vendor_image;"
 	export OF_UNBIND_SDCARD_F2FS=1
 
-	# lzma
-	#export FOX_USE_LZMA_COMPRESSION=1
-
 	# vanilla build
 	export OF_VANILLA_BUILD=1
 
@@ -68,5 +65,13 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 
 	# run a process after formatting data to work-around MTP issues
 	export OF_RUN_POST_FORMAT_PROCESS=1
+
+	# dynamic partitions ?
+	if [ "$FOX_USE_DYNAMIC_PARTITIONS" = "1"  ]; then
+		export OF_QUICK_BACKUP_LIST="/boot;/data;"
+		export FOX_RECOVERY_SYSTEM_PARTITION="/dev/block/mapper/system"
+		export FOX_RECOVERY_VENDOR_PARTITION="/dev/block/mapper/vendor"
+		export FOX_VARIANT="dynamic"
+	fi
 fi
 #

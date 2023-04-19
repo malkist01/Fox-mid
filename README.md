@@ -1,6 +1,5 @@
 # Device Tree for Xiaomi Redmi Note 4 & 4x (codenamed _"mido"_)
 
-Kernel source: "https://github.com/zeelog/android_kernel_xiaomi_mido.git"
 ==================================
 ## Device specifications
 
@@ -24,12 +23,22 @@ Kernel source: "https://github.com/zeelog/android_kernel_xiaomi_mido.git"
 
 ![Redmi Note 4](http://i01.appmifile.com/webfile/globalimg/7/537557F3-A4F1-2490-E9D3-138B2A11DBF6.png "Redmi Note 4")
 
+## Building
+Generally, see https://wiki.orangefox.tech/en/dev/building
+
+### Variants
+1. For standard mode, build without any additional flags.
+2. To build for ROMs using retrofitted dynamic partitions, run "export FOX_USE_DYNAMIC_PARTITIONS=1" before building.
+
+### Kernel source
+Clone this: "https://github.com/Alone0316/kernel_mido.git"
+
 ### Copyright
  ```
   /*
   *  Copyright (C) 2013-2020 The TWRP
   *
-  *  Copyright (C) 2018-2022 The OrangeFox Recovery Project
+  *  Copyright (C) 2018-2023 The OrangeFox Recovery Project
   *
   * This program is free software: you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
