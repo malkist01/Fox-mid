@@ -47,9 +47,7 @@ sortout_keys() {
 	echo "0" > /sys/class/leds/led:flash_1/max_brightness;
 
 	echo "0" > /proc/touchpanel/capacitive_keys_disable;
-	# echo "0" > /sys/devices/soc/qpnp-flash-led-25/leds/led:torch_1/max_brightness;
 }
-
 
 sortout_keys;
 set_read_write_partitions;
