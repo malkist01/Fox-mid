@@ -53,6 +53,7 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 	export FOX_BUGGED_AOSP_ARB_WORKAROUND="1510672800" # Tuesday,   November 14, 2017 15:20:00 GMT
 	export OF_QUICK_BACKUP_LIST="/boot;/data;/system_image;/vendor_image;"
 	export OF_UNBIND_SDCARD_F2FS=1
+	export OF_USE_GREEN_LED=0
 
 	# patch avb20 - some ROM recoveries try to overwrite custom recoveries
 	export OF_PATCH_AVB20=1
