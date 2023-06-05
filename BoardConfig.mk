@@ -18,7 +18,12 @@ DEVICE_PATH := device/xiaomi/mido
 TARGET_RECOVERY_DEVICE_DIRS += $(DEVICE_PATH)
 
 # kernel
-TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz-dtb
+
+# fussion kernel
+KERNEL_DIR := $(DEVICE_PATH)/prebuilt
+
+# prebuilt kernel
+TARGET_PREBUILT_KERNEL := $(KERNEL_DIR)/Image.gz-dtb
 
 # brightness
 TW_MAX_BRIGHTNESS := 255
@@ -34,4 +39,7 @@ PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
 # security patch
 PLATFORM_SECURITY_PATCH := 2099-12-31
 VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
+
+# default language
+TW_DEFAULT_LANGUAGE := en
 #
