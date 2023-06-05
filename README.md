@@ -31,7 +31,7 @@ Generally, see https://wiki.orangefox.tech/en/dev/building
 2. To build for ROMs using retrofitted dynamic partitions, run "export FOX_USE_DYNAMIC_PARTITIONS=1" before building.
 
 ### Kernel source
-Clone this: "https://github.com/Alone0316/kernel_mido.git" ("-b sapphire")
+Clone this: "https://github.com/zeelog/android_kernel_xiaomi_mido.git"
 
 ### Copyright
  ```
