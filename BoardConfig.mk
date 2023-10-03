@@ -14,6 +14,9 @@ include device/xiaomi/mithorium-common/BoardConfigCommon.mk
 
 DEVICE_PATH := device/xiaomi/mido
 
+# platform
+TARGET_BOARD_PLATFORM := msm8953
+
 # Recovery
 TARGET_RECOVERY_DEVICE_DIRS += $(DEVICE_PATH)
 
