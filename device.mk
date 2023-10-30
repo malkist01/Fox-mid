@@ -30,8 +30,3 @@ PRODUCT_EXTRA_RECOVERY_KEYS += \
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)
 #
-
-# keymaster
-PRODUCT_PROPERTY_OVERRIDES += \
-	keymaster_ver=3.0
-#

@@ -28,6 +28,9 @@ OF_SKIP_MULTIUSER_FOLDERS_BACKUP := 1
 OF_UNBIND_SDCARD_F2FS := 1
 OF_USE_GREEN_LED := 0
 
+# default keymaster service version
+OF_DEFAULT_KEYMASTER_VERSION := 3.0
+
 # patch avb20 - some ROM recoveries try to overwrite custom recoveries
 OF_PATCH_AVB20 := 1
 
