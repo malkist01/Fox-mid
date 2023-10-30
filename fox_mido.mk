@@ -43,6 +43,9 @@ OF_DISABLE_OTA_MENU := 1
 # run a process after formatting data to work-around MTP issues
 OF_RUN_POST_FORMAT_PROCESS := 1
 
+# don't spam the console with loop mount issues
+OF_LOOP_DEVICE_ERRORS_TO_LOG := 1
+
 # retrofitted dynamic partitions?
 ifeq ($(FOX_USE_DYNAMIC_PARTITIONS),1)
   OF_QUICK_BACKUP_LIST := /boot;/data;
