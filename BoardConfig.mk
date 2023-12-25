@@ -46,4 +46,7 @@ VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
 
 # default language
 TW_DEFAULT_LANGUAGE := en
+
+# frame rate
+TW_FRAMERATE := 60
 #
