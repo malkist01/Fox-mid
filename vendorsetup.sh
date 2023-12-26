@@ -43,6 +43,7 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 	export FOX_ENABLE_APP_MANAGER=1
 	export FOX_BUGGED_AOSP_ARB_WORKAROUND="1510672800" # Tuesday,   November 14, 2017 15:20:00 GMT
 	export FOX_BASH_TO_SYSTEM_BIN=1
+	export FOX_USE_SPECIFIC_MAGISK_ZIP=~/Magisk/Magisk-v26.4.zip
 
        # dynamic partitions ?
        if [ "$FOX_USE_DYNAMIC_PARTITIONS" = "1"  ]; then
