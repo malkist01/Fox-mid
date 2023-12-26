@@ -59,9 +59,9 @@ ifeq ($(FOX_USE_DYNAMIC_PARTITIONS),1)
   BOARD_SUPER_PARTITION_CUST_DEVICE_SIZE := 872415232
   BOARD_SUPER_PARTITION_SYSTEM_DEVICE_SIZE := 3221225472
   BOARD_SUPER_PARTITION_SIZE := $(shell expr $(BOARD_SUPER_PARTITION_CUST_DEVICE_SIZE) + $(BOARD_SUPER_PARTITION_SYSTEM_DEVICE_SIZE) )
-  BOARD_SUPER_PARTITION_GROUPS := mido_dynamic_partition
   BOARD_MIDO_DYNAMIC_PARTITION_SIZE := $(shell expr $(BOARD_SUPER_PARTITION_SIZE) - 4194304 )
   BOARD_MIDO_DYNAMIC_PARTITION_LIST := system system_ext product vendor odm
+  BOARD_SUPER_PARTITION_GROUPS := mido_dynamic_partition
 
   PRODUCT_PACKAGES += \
     android.hardware.fastboot@1.0-impl-mock \
@@ -74,16 +74,25 @@ ifeq ($(FOX_USE_DYNAMIC_PARTITIONS),1)
     android.hardware.boot@1.1-service
 
   PRODUCT_PROPERTY_OVERRIDES += \
+	ro.orangefox.dynamic.build=true \
 	ro.fastbootd.available=true \
 	ro.boot.dynamic_partitions=true \
 	ro.boot.dynamic_partitions_retrofit=true
 
   TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/fstab_files/recovery-dynamic.fstab
   PRODUCT_COPY_FILES += $(DEVICE_PATH)/recovery/fstab_files/twrp-dynamic.flags:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/twrp.flags
+
+  # copy recovery/fstab_files/ from the device directory (if it exists)
+  ifneq ($(wildcard $(DEVICE_PATH)/recovery/fstab_files/.),)
+    PRODUCT_COPY_FILES += \
+        $(call find-copy-subdir-files,*,$(DEVICE_PATH)/recovery/fstab_files/*,$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/)
+  endif
+  #
 else
   OF_QUICK_BACKUP_LIST := /boot;/data;/system_image;/vendor_image;
-
-  TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/fstab_files/recovery.fstab
-  PRODUCT_COPY_FILES += $(DEVICE_PATH)/recovery/fstab_files/twrp.flags:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/twrp.flags
+  TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/fstab_files/recovery-non-dynamic.fstab
+  PRODUCT_COPY_FILES += $(DEVICE_PATH)/recovery/fstab_files/twrp-non-dynamic.flags:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/twrp.flags
+  PRODUCT_PROPERTY_OVERRIDES += \
+	ro.orangefox.dynamic.build=false
 endif
 #
