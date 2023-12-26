@@ -21,42 +21,10 @@
 
 # This script requires bash (with the binary in /system/bin/ - not /sbin/)
 
-# the device that we are building for
-BUILD_DEVICE=mido;
+# include for helper routines
+source /system/bin/midotools.sh
 
-# set to 1 while testing, else set to 0
-debug_mode=0;
-
-# write a message to the log file
-LOGMSG() {
-	echo "I:$@" >> /tmp/recovery.log;
-}
-
-# test-phase log messages
-TESTING_LOG() {
-	[ "$debug_mode" = "1" ] && LOGMSG "$@";
-}
-
-# report whether the ROM has dynamic partitions
-rom_has_dynamic_partitions() {
-  local markers=""$BUILD_DEVICE"_dynamic_partitions "$BUILD_DEVICE"_dynpart xiaomi_dynamic_partitions qti_dynamic_partitions xiaomi_dynpart qti_dynpart";
-  local F=/tmp/blck_tmp;
-  dd if=/dev/block/by-name/system bs=256k count=1 of=$F;
-  strings $F | grep dyn > "$F.txt";
-  for i in $markers
-  do
-	TESTING_LOG "Checking for $i in $F.txt";
-	if grep $i "$F.txt" > /dev/null; then
-		echo "1";
-		[ "$debug_mode" != "1" ] && rm -f $F*;
-		return;
-     	fi
-  done
-  [ "$debug_mode" != "1" ] && rm -f $F*;
-  echo "0";
-}
-
-# do the work
+# use the appropriate fstab file
 process_fstab_files() {
   local F="/system/etc/recovery.fstab";
   local TF="/system/etc/twrp.flags";
