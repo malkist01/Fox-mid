@@ -16,7 +16,7 @@
 #
 
 # set to 1 during the testing phase, else set to 0
-debug_mode=1;
+debug_mode=0;
 
 # DEBUG mode?
 [ "$debug_mode" = "1" ] && set -o xtrace;
