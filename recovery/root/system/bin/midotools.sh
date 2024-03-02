@@ -1,5 +1,5 @@
 #
-#	Copyright (C) 2023 OrangeFox Recovery Project
+#	Copyright (C) 2023-2024 OrangeFox Recovery Project
 #	This file is part of the OrangeFox Recovery Project.
 #
 #	OrangeFox is free software: you can redistribute it and/or modify
@@ -69,9 +69,9 @@ set_read_write_partitions() {
   [ "$i" = "1" ] && return; # don't run this in fastbootd mode
 
   i=$(getprop "ro.boot.dynamic_partitions_retrofit");
-  [ "$i" != "true" ] && return; # only run on dynamic retrofit
+  [ "$i" != "true" ] && return; # only run on dynamic
 
-  local Parts="system system_ext vendor product";
+  local Parts="system system_ext vendor product odm";
   for i in $Parts
   do
      LOGMSG "OrangeFox: setting $i to read/write";
