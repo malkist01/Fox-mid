@@ -1,7 +1,7 @@
 #!/system/bin/sh
 #
 #	This file is part of the OrangeFox Recovery Project
-# 	Copyright (C) 2023 The OrangeFox Recovery Project
+# 	Copyright (C) 2023-2024 The OrangeFox Recovery Project
 #
 #	OrangeFox is free software: you can redistribute it and/or modify
 #	it under the terms of the GNU General Public License as published by
@@ -36,8 +36,10 @@ process_fstab_files() {
   	src_fstab="/system/etc/recovery-dynamic.fstab";
   	src_flags="/system/etc/twrp-dynamic.flags";
   	TESTING_LOG "Dynamic ROM";
+    	resetprop "fox_dynamic_device" "1";
   else
     	TESTING_LOG "Non-dynamic ROM";
+    	resetprop "fox_dynamic_device" "0";
   fi
 
   # sort out the fstab files  
@@ -56,5 +58,6 @@ process_fstab_files() {
 # --- #
 TESTING_LOG "Running $0";
 process_fstab_files;
+setenforce 0;
 exit 0;
 #
