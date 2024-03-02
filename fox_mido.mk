@@ -1,6 +1,6 @@
 #
 #	This file is part of the OrangeFox Recovery Project
-# 	Copyright (C) 2023 The OrangeFox Recovery Project
+# 	Copyright (C) 2023-2024 The OrangeFox Recovery Project
 #
 #	OrangeFox is free software: you can redistribute it and/or modify
 #	it under the terms of the GNU General Public License as published by
@@ -24,7 +24,6 @@ OF_DONT_PATCH_ENCRYPTED_DEVICE := 1
 OF_USE_MAGISKBOOT_FOR_ALL_PATCHES := 1
 OF_NO_TREBLE_COMPATIBILITY_CHECK := 1
 OF_ALLOW_DISABLE_NAVBAR := 1
-OF_SKIP_MULTIUSER_FOLDERS_BACKUP := 1
 OF_UNBIND_SDCARD_F2FS := 1
 OF_USE_GREEN_LED := 0
 
@@ -39,9 +38,6 @@ OF_NO_ADDITIONAL_MIUI_PROPS_CHECK := 1
 
 # dispense with the entire OTA menu
 OF_DISABLE_OTA_MENU := 1
-
-# run a process after formatting data to work-around MTP issues
-OF_RUN_POST_FORMAT_PROCESS := 1
 
 # don't spam the console with loop mount issues
 OF_LOOP_DEVICE_ERRORS_TO_LOG := 1
