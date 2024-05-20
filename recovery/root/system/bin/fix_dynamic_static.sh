@@ -24,6 +24,13 @@
 # include for helper routines
 source /system/bin/midotools.sh
 
+# cleanup
+do_cleanup() {
+  TESTING_LOG "Cleaning up ...";
+  rm -f /system/etc/recovery-*;
+  rm -f /system/etc/twrp-*;
+}
+
 # use the appropriate fstab file
 process_fstab_files() {
   local F="/system/etc/recovery.fstab";
@@ -49,10 +56,8 @@ process_fstab_files() {
   TESTING_LOG "Copying $src_flags to $TF";
   cp -a $src_flags $TF;
 
-  # cleanup
-  TESTING_LOG "Cleaning up ...";
-  rm -f /system/etc/recovery-*;
-  rm -f /system/etc/twrp-*;  
+  # comment this out for now - don't remove the various fstab files
+  # do_cleanup;
 }
 
 # --- #
