@@ -18,6 +18,38 @@
 # 	Please maintain this if you use this script or any part of it
 #
 FDEVICE="mido"
+THIS_DEVICE=${BASH_ARGV[2]}
+
+fetch_mithorium_common_repo() {
+	local URL=https://github.com/Mi-Thorium/twrp_device_xiaomi_mithorium-common.git;
+	local common=device/xiaomi/mithorium-common;
+	local branch=android-12.1;
+
+	if [ ! -d $common ]; then
+		echo "Cloning $URL ... to $common";
+		git clone $URL -b $branch $common;
+
+		# remove unneeded dependencies file
+		echo "Removing $common/twrp.dependencies ...";
+		rm -f $common/twrp.dependencies;
+	else
+		echo "Common repository: \"$common\" found ...";
+	fi
+}
+
+fetch_kernel_mithorium_repo() {
+	local URL=https://github.com/Mi-Thorium/twrp_device_xiaomi_kernel-mithorium.git;
+	local common=device/xiaomi/kernel-mithorium;
+	local branch=master;
+
+	if [ ! -d $common ]; then
+		echo "Cloning $URL ... to $common";
+		git clone --depth=1 $URL -b $branch $common;
+	else
+		echo "Kernel common repository: \"$common\" found ...";
+	fi
+}
+
 
 fox_get_target_device() {
 local chkdev=$(echo "$BASH_SOURCE" | grep \"$FDEVICE\")
@@ -34,6 +66,17 @@ if [ -z "$1" -a -z "$FOX_BUILD_DEVICE" ]; then
 fi
 
 if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
+	if [ -z "$THIS_DEVICE" ]; then
+		echo "ERROR! This script requires bash. Run '/bin/bash' and build again."
+		exit 1
+	fi
+
+	# mithorium-common
+	fetch_mithorium_common_repo;
+
+	# kernel-mithorium
+	# fetch_kernel_mithorium_repo;
+
 	export FOX_USE_BASH_SHELL=1
 	export FOX_ASH_IS_BASH=1
 	export FOX_USE_NANO_EDITOR=1
@@ -51,7 +94,7 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 	if [ "$FOX_USE_DYNAMIC_PARTITIONS" = "1"  ]; then
 		export FOX_RECOVERY_SYSTEM_PARTITION="/dev/block/mapper/system"
 		export FOX_RECOVERY_VENDOR_PARTITION="/dev/block/mapper/vendor"
-		# export FOX_VARIANT="unified"
+		export FOX_VARIANT="unified"
 	fi
 else
 	if [ -z "$FOX_BUILD_DEVICE" -a -z "$BASH_SOURCE" ]; then
