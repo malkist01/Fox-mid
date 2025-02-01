@@ -1,6 +1,6 @@
 #
 #	This file is part of the OrangeFox Recovery Project
-# 	Copyright (C) 2018-2024 The OrangeFox Recovery Project
+# 	Copyright (C) 2018-2025 The OrangeFox Recovery Project
 #	
 #	OrangeFox is free software: you can redistribute it and/or modify
 #	it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ FDEVICE="mido"
 THIS_DEVICE=${BASH_ARGV[2]}
 
 fetch_mithorium_common_repo() {
-	local URL=https://github.com/Mi-Thorium/twrp_device_xiaomi_mithorium-common.git;
+	local URL=https://gitlab.com/OrangeFox/device/device_xiaomi_mithorium-common.git;
 	local common=device/xiaomi/mithorium-common;
 	local branch=android-12.1;
 
@@ -33,23 +33,9 @@ fetch_mithorium_common_repo() {
 		echo "Removing $common/twrp.dependencies ...";
 		rm -f $common/twrp.dependencies;
 	else
-		echo "Common repository: \"$common\" found ...";
+		echo "Device common repository: \"$common\" found ...";
 	fi
 }
-
-fetch_kernel_mithorium_repo() {
-	local URL=https://github.com/Mi-Thorium/twrp_device_xiaomi_kernel-mithorium.git;
-	local common=device/xiaomi/kernel-mithorium;
-	local branch=master;
-
-	if [ ! -d $common ]; then
-		echo "Cloning $URL ... to $common";
-		git clone --depth=1 $URL -b $branch $common;
-	else
-		echo "Kernel common repository: \"$common\" found ...";
-	fi
-}
-
 
 fox_get_target_device() {
 local chkdev=$(echo "$BASH_SOURCE" | grep \"$FDEVICE\")
@@ -74,19 +60,18 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 	# mithorium-common
 	fetch_mithorium_common_repo;
 
-	# kernel-mithorium
-	# fetch_kernel_mithorium_repo;
-
 	export FOX_USE_BASH_SHELL=1
 	export FOX_ASH_IS_BASH=1
 	export FOX_USE_NANO_EDITOR=1
 	export FOX_USE_TAR_BINARY=1
 	export FOX_USE_SED_BINARY=1
+	export FOX_USE_LZ4_BINARY=1
+	export FOX_USE_ZSTD_BINARY=1
 	export FOX_USE_XZ_UTILS=1
 	export FOX_ENABLE_APP_MANAGER=1
 	export FOX_BUGGED_AOSP_ARB_WORKAROUND="1510672800" # Tuesday,   November 14, 2017 15:20:00 GMT
 	export FOX_BASH_TO_SYSTEM_BIN=1
-	export FOX_USE_SPECIFIC_MAGISK_ZIP=~/Magisk/Magisk-v27.0.zip
+	export FOX_USE_SPECIFIC_MAGISK_ZIP=~/Magisk/Magisk-v28.1.zip
 
 	# dynamic partitions ?
 	export FOX_USE_DYNAMIC_PARTITIONS=1; # always make dynamic builds [unified]
