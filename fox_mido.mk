@@ -1,6 +1,6 @@
 #
 #	This file is part of the OrangeFox Recovery Project
-# 	Copyright (C) 2023-2024 The OrangeFox Recovery Project
+# 	Copyright (C) 2023-2025 The OrangeFox Recovery Project
 #
 #	OrangeFox is free software: you can redistribute it and/or modify
 #	it under the terms of the GNU General Public License as published by
@@ -45,6 +45,10 @@ OF_LOOP_DEVICE_ERRORS_TO_LOG := 1
 # retrofitted dynamic partitions?
 ifeq ($(FOX_USE_DYNAMIC_PARTITIONS),1)
   OF_QUICK_BACKUP_LIST := /boot;/data;
+
+  # build all the partition tools
+  OF_ENABLE_ALL_PARTITION_TOOLS := 1
+
   TW_INCLUDE_FASTBOOTD := true
   BOARD_USES_METADATA_PARTITION := true
   BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
