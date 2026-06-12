@@ -15,7 +15,7 @@ on:
       DEVICE_TREE:
         description: 'Custom Recovery Tree'
         required: true
-        default: 'https://github.com/malkist01/android_device_xiaomi_marble-OFRP'
+        default: 'https://github.com/malkist01/Fox-mid'
       DEVICE_TREE_BRANCH:
         description: 'Custom Recovery Tree Branch'
         required: true
